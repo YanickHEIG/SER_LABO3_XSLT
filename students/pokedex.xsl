@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-
+<!-- Mendes Hugo & Thomann Yanick -->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 	<!-- Travail à faire : Compléter les parties <a compléter> de 1 à 10 afin d'obtenir le résultat expliqué dans la vidéo du laboratoire -->
@@ -69,9 +69,9 @@
 									<xsl:value-of select="." />
 								</xsl:attribute>
 
-								<!-- ##### TODO A compléter 4 : Ici, vous devez faire appel au template lister_pokemon en lui passant le bon filtre en paramètre -->
+								<!-- ##### A compléter 4 : Ici, vous devez faire appel au template lister_pokemon en lui passant le bon filtre en paramètre -->
 								<xsl:call-template name="lister_pokemon">
-									<xsl:with-param name="filtre" select="//pokedex/pokemon[type = $type]" />
+									<xsl:with-param name="filtre" select="/pokedex/pokemon[type = $type]" />
 								</xsl:call-template>
 							</div>
 						</xsl:for-each>
@@ -97,8 +97,6 @@
 	</xsl:template> <!-- Fin a compléter 2 -->
 
 	<xsl:template name="lister_pokemon">
-
-		<!-- TODO: passer au autre paramètre et créer une variable? -->
 		<xsl:param name="filtre" /> <!-- ##### A compléter 6 -->
 
 		<div class="row">
@@ -133,6 +131,7 @@
 					<xsl:when test="649 >= id">5</xsl:when>
 					<xsl:when test="721 >= id">6</xsl:when>
 					<xsl:when test="809 >= id">7</xsl:when>
+					<!-- Au cas ou (meme si ce n'est pas utilisé) -->
 					<xsl:otherwise>0</xsl:otherwise>
 				</xsl:choose>
 			</xsl:attribute>
@@ -163,7 +162,7 @@
 		<!-- NB : La sources d'images utilisées provient de :  https://github.com/fanzeyi/pokemon.json    -->
 		<img width="100%">
 			<xsl:attribute name="src">
-				<xsl:value-of select="concat('images/', substring(concat('000', current()), string-length(current()) + 1, 6), '.png')" />
+				<xsl:value-of select="concat('images/', format-number(current(), '000'), '.png')" />
 			</xsl:attribute>
 		</img>
 	</xsl:template>
